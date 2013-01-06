@@ -10,6 +10,7 @@
 #pragma mark - Nodes
 
 typedef struct Node {
+    int depth;
     char character;
     struct Node **nodes;
     struct Node *parent;
@@ -24,6 +25,7 @@ Node *newNode() {
     }
     node->final = NO;
     node->character = ' ';
+    node->depth = 0;
     node->parent = NULL;
     return node;
 }
@@ -37,11 +39,20 @@ void freeNode(Node *node) {
     }
 }
 
-NSString *stringFromNode(Node *node) {
-    NSString *str = @"";
+char *cStringFromNode(Node *node) {
+    char *str = (char *)malloc(sizeof(char) * node->depth);
+    str[node->depth] = '\0';
+    int index = node->depth - 1;
     for (; node->parent != NULL ; node = node->parent) {
-        str = [NSString stringWithFormat:@"%c%@", node->character, str];
+        str[index--] = node->character;
     }
+    return str;
+}
+
+NSString *stringFromNode(Node *node) {
+    char *cString = cStringFromNode(node);
+    NSString *str = [[NSString alloc] initWithCString:cString encoding:NSUTF8StringEncoding];
+    free(cString);
     return str;
 }
 
@@ -55,6 +66,7 @@ void addWordToTree(NSString *word, Node *rootNode) {
         if (currentNode->nodes[index] == NULL) {
             Node *node = newNode();
             node->character = character;
+            node->depth = currentNode->depth + 1;
             node->parent = currentNode;
             currentNode->nodes[index] = node;
         }

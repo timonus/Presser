@@ -10,7 +10,9 @@
 #pragma mark - Nodes
 
 typedef struct Node {
+    char character;
     struct Node **nodes;
+    struct Node *parent;
     BOOL final;
 } Node;
 
@@ -21,6 +23,8 @@ Node *newNode() {
         node->nodes[i] = NULL;
     }
     node->final = NO;
+    node->character = ' ';
+    node->parent = NULL;
     return node;
 }
 
@@ -33,6 +37,14 @@ void freeNode(Node *node) {
     }
 }
 
+NSString *stringFromNode(Node *node) {
+    NSString *str = @"";
+    for (; node->parent != NULL ; node = node->parent) {
+        str = [NSString stringWithFormat:@"%c%@", node->character, str];
+    }
+    return str;
+}
+
 #pragma mark - Trees
 
 void addWordToTree(NSString *word, Node *rootNode) {
@@ -41,7 +53,10 @@ void addWordToTree(NSString *word, Node *rootNode) {
         char character = [word characterAtIndex:i];
         int index = character - 'a';
         if (currentNode->nodes[index] == NULL) {
-            currentNode->nodes[index] = newNode();
+            Node *node = newNode();
+            node->character = character;
+            node->parent = currentNode;
+            currentNode->nodes[index] = node;
         }
         currentNode = currentNode->nodes[index];
     }
@@ -118,12 +133,12 @@ Node *treeGivenDictionaryAndAvailableLetters(NSArray *dictionary, NSArray *lette
 
 #pragma mark - Cheating (Calcluating and sorting scores given state)
 
-void scoreGivenNodeAndPointsForCharactersWithAccumulatedStringAndPoints(Node *node, NSMutableDictionary *pointedCharacters, NSString *string, int points, NSMutableDictionary *results) {
+void scoreGivenNodeAndPointsForCharactersWithPoints(Node *node, NSMutableDictionary *pointedCharacters, int points, NSMutableDictionary *results) {
     if (node->final) {
         if (![results objectForKey:@(points)]) {
             [results setObject:[NSMutableArray array] forKey:@(points)];
         }
-        [[results objectForKey:@(points)] addObject:string];
+        [[results objectForKey:@(points)] addObject:stringFromNode(node)];
     }
     
     for (NSString *key in [pointedCharacters allKeys]) {
@@ -141,7 +156,7 @@ void scoreGivenNodeAndPointsForCharactersWithAccumulatedStringAndPoints(Node *no
                 [pointedCharacters removeObjectForKey:key];
             }
             
-            scoreGivenNodeAndPointsForCharactersWithAccumulatedStringAndPoints(node->nodes[index], pointedCharacters, [string stringByAppendingFormat:@"%c", character], points + pointsForCharacter, results);
+            scoreGivenNodeAndPointsForCharactersWithPoints(node->nodes[index], pointedCharacters, points + pointsForCharacter, results);
             
             [pointedCharacters setObject:tmp forKey:key];
         }
@@ -150,7 +165,7 @@ void scoreGivenNodeAndPointsForCharactersWithAccumulatedStringAndPoints(Node *no
 
 NSMutableDictionary *scoreGivenTreeAndPointsForCharacters(Node *tree, NSMutableDictionary *pointedCharacters) {
     NSMutableDictionary *results = [NSMutableDictionary dictionary];
-    scoreGivenNodeAndPointsForCharactersWithAccumulatedStringAndPoints(tree, pointedCharacters, @"", 0, results);
+    scoreGivenNodeAndPointsForCharactersWithPoints(tree, pointedCharacters, 0, results);
     return results;
 }
 

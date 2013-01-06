@@ -75,23 +75,6 @@ void addWordToTree(NSString *word, Node *rootNode) {
     currentNode->final = YES;
 }
 
-void printTreeWithAccumulatedString(Node *rootNode, NSString *accumulatedString) {
-    if (rootNode != NULL) {
-        if (rootNode -> final) {
-            NSLog(@"%@", accumulatedString);
-        }
-        for (int i = 0 ; i < 26 ; i++) {
-            if (rootNode->nodes[i] != NULL) {
-                printTreeWithAccumulatedString(rootNode->nodes[i], [accumulatedString stringByAppendingFormat:@"%c", 'a' + i]);
-            }
-        }
-    }
-}
-
-void printTree(Node *rootNode) {
-    printTreeWithAccumulatedString(rootNode, @"");
-}
-
 #pragma mark - Dictionary Loading
 
 #warning Fill in the path to the Letterpress dictionary files below

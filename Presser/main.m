@@ -187,6 +187,16 @@ int main(int argc, const char * argv[])
             1,1,1,1,1
         };
         
+        // FOR EXAMPLE: The board here http://f.cl.ly/items/293V0z2z1w3t370N0J2g/board.png would be
+//        NSString *characters = @"zerggixwodlhvhzxthktmkzur";
+//        int values[] = {
+//            1,0,2,0,2,
+//            0,1,2,2,0,
+//            1,1,0,0,1,
+//            1,0,0,1,0,
+//            2,1,1,0,1
+//        };
+        
         NSMutableArray *board = [NSMutableArray array];
         for (int i = 0 ; i < [characters length] ; i++) {
             [board addObject:[NSString stringWithFormat:@"%c", [characters characterAtIndex:i]]];

@@ -216,7 +216,14 @@ int main(int argc, const char * argv[])
             }
             
             NSLog(@"%d", max);
-            NSLog(@"%@", [results objectForKey:@(max)]);
+            NSLog(@"%@", [[results objectForKey:@(max)] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                if ([obj1 length] > [obj2 length]) {
+                    return NSOrderedAscending;
+                } else if ([obj2 length] > [obj1 length]) {
+                    return NSOrderedDescending;
+                }
+                return NSOrderedSame;
+            }]);
             
             [results removeObjectForKey:@(max)];
         }

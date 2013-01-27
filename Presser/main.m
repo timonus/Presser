@@ -163,14 +163,7 @@ NSMutableDictionary *scoreGivenTreeAndPointsForCharacters(Node *tree, NSMutableD
 
 void assureSortOrderInPointedCharacters(NSMutableDictionary *pointedCharacters) {
     for (NSString *key in [pointedCharacters allKeys]) {
-        [(NSMutableArray *)[pointedCharacters objectForKey:key] sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            if ([obj1 intValue] > [obj2 intValue]) {
-                return NSOrderedAscending;
-            } else if ([obj2 intValue] > [obj1 intValue]) {
-                return NSOrderedDescending;
-            }
-            return NSOrderedSame;
-        }];
+        [[pointedCharacters objectForKey:key] sortUsingSelector:@selector(compare:)];
     }
 }
 
@@ -231,14 +224,7 @@ int main(int argc, const char * argv[])
             }
             
             NSLog(@"%d", max);
-            NSLog(@"%@", [[results objectForKey:@(max)] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                if ([obj1 length] > [obj2 length]) {
-                    return NSOrderedAscending;
-                } else if ([obj2 length] > [obj1 length]) {
-                    return NSOrderedDescending;
-                }
-                return NSOrderedSame;
-            }]);
+            NSLog(@"%@", [[results objectForKey:@(max)] sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(length)) ascending:NO]]]);
             
             [results removeObjectForKey:@(max)];
         }

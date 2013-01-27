@@ -24,3 +24,11 @@ In main.m, this board would be represented as
             2,1,1,0,1
         };
 ```
+
+## Not Working?
+
+Presser depends on the [Letterpress Words repository](https://github.com/atebits/Words), don't forget to update your submodules
+
+```
+git submodule update --init
+```

@@ -26,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		222E069616B5EF7C00BA509D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		222E069816B5EF7C00BA509D /* en.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = en.txt; sourceTree = "<group>"; };
 		22EE80301693BA05007CDCBC /* Presser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Presser; sourceTree = BUILT_PRODUCTS_DIR; };
 		22EE80341693BA05007CDCBC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		22EE80371693BA05007CDCBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -45,6 +47,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		222E069416B5EF7C00BA509D /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				222E069516B5EF7C00BA509D /* Words */,
+			);
+			path = Vendor;
+			sourceTree = SOURCE_ROOT;
+		};
+		222E069516B5EF7C00BA509D /* Words */ = {
+			isa = PBXGroup;
+			children = (
+				222E069616B5EF7C00BA509D /* README.md */,
+				222E069716B5EF7C00BA509D /* Words */,
+			);
+			path = Words;
+			sourceTree = "<group>";
+		};
+		222E069716B5EF7C00BA509D /* Words */ = {
+			isa = PBXGroup;
+			children = (
+				222E069816B5EF7C00BA509D /* en.txt */,
+			);
+			path = Words;
+			sourceTree = "<group>";
+		};
 		22EE80251693BA04007CDCBC = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +102,7 @@
 			children = (
 				22EE80371693BA05007CDCBC /* main.m */,
 				22EE803B1693BA05007CDCBC /* Presser.1 */,
+				222E069416B5EF7C00BA509D /* Vendor */,
 				22EE80391693BA05007CDCBC /* Supporting Files */,
 			);
 			path = Presser;
@@ -98,6 +126,7 @@
 				22EE802C1693BA05007CDCBC /* Sources */,
 				22EE802D1693BA05007CDCBC /* Frameworks */,
 				22EE802E1693BA05007CDCBC /* CopyFiles */,
+				222E069A16B5EF8600BA509D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -133,6 +162,22 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		222E069A16B5EF8600BA509D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp Vendor/Words/Words/en.txt $TARGET_BUILD_DIR";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		22EE802C1693BA05007CDCBC /* Sources */ = {
@@ -236,6 +281,7 @@
 				22EE80411693BA05007CDCBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

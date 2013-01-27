@@ -77,20 +77,15 @@ void addWordToTree(NSString *word, Node *rootNode) {
 
 #pragma mark - Dictionary Loading
 
-#warning Fill in the path to the Letterpress dictionary files below
-NSString *const path = @"/Users/tim/Desktop/o";
-
 NSArray *dictionary() {
     NSMutableArray *dictionary = [[NSMutableArray alloc] init];
-    for (NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil]) {
-        NSString *filePath = [path stringByAppendingPathComponent:filename];
-        NSString *file = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        
-        NSArray *words = [file componentsSeparatedByString:@"\n"];
-        for (NSString *word in words) {
-            if ([word length] > 0) {
-                [dictionary addObject:word];
-            }
+    NSString *filePath = @"en.txt";
+    NSString *file = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+
+    NSArray *words = [file componentsSeparatedByString:@"\n"];
+    for (NSString *word in words) {
+        if ([word length] > 0) {
+            [dictionary addObject:word];
         }
     }
     return dictionary;

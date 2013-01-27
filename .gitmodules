@@ -1,0 +1,3 @@
+[submodule "Vendor/Words"]
+	path = Vendor/Words
+	url = git://github.com/atebits/Words.git
